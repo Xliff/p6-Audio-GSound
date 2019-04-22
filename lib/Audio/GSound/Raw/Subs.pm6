@@ -98,3 +98,16 @@ sub gsound_context_set_driver (
   is native(gsound)
   is export
   { * }
+
+sub gsound_context_play_simple (
+  GSoundContext $context,
+  GCancellable $cancellable,
+  CArray[Pointer[GError]] $error,
+  Str $attr,
+  Str $val,
+  Str
+)
+  returns uint32
+  is native(gsound)
+  is export
+  { * }

@@ -7,7 +7,7 @@ use GTK::Roles::Pointers;
 
 unit package Audio::GSound::Raw::Types;
 
-constant gsound is export = 'sound',v0;
+constant gsound is export = 'gsound',v0;
 
 class GSoundContext is repr('CPointer') is export does GTK::Roles::Pointers {}
 

@@ -87,10 +87,37 @@ class Audio::GSound {
     );
   }
 
+  multi method play_simple (
+    Str() $attr,
+    Str() $val,
+    GCancellable $cancellable = Pointer,
+    CArray[Pointer[GError]] $error = gerror()
+  ) {
+    samewith($cancellable, $error, $attr, $val);
+  }
+  multi method play_simple (
+    GCancellable $cancellable,
+    CArray[Pointer[GError]] $error,
+    Str $attr,
+    Str $val
+  ) {
+    clear_error;
+    my $rc = so gsound_context_play_simple(
+      $!c,
+      $cancellable,
+      $error,
+      $attr,
+      $val,
+      Str
+    );
+    set_error($error);
+    $rc;
+  }
+
   method play_simplev (
     GHashTable() $attrs,
-    GCancellable $cancellable      = Pointer,
-    CArray[Pointer[GError]] $error = gerror()
+    CArray[Pointer[GError]] $error = gerror(),
+    GCancellable $cancellable      = Pointer
   ) {
     clear_error;
     my $rc = so gsound_context_play_simplev($!c, $attrs, $cancellable, $error);
@@ -118,4 +145,8 @@ class Audio::GSound {
     $rc;
   }
 
+}
+
+sub EXPORT {
+  %( Audio::GSound::Raw::Types::EXPORT::DEFAULT:: );
 }
